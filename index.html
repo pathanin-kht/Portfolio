@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathanin khuhathong - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        :root {
+            --bg-color: #f5f5f5;
+            --text-color: #333;
+            --header-bg: white;
+            --section-bg: white;
+            --skill-bg: #e3f2fd;
+            --skill-text: #1976d2;
+            --title-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #3498db;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --header-bg: #2d2d2d;
+            --section-bg: #2d2d2d;
+            --skill-bg: #3d3d3d;
+            --skill-text: #8bb4fe;
+            --title-color: #8bb4fe;
+            --subtitle-color: #a0a0a0;
+            --border-color: #8bb4fe;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--section-bg);
+            padding: 10px;
+            border-radius: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            padding: 40px 0;
+            background-color: var(--header-bg);
+            margin-bottom: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .profile-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-header h1 {
+            font-size: 2.5em;
+            color: var(--title-color);
+            margin-bottom: 10px;
+        }
+
+        .profile-title {
+            color: var(--subtitle-color);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .contact-item:hover {
+            color: var(--border-color);
+        }
+
+        .section {
+            background: var(--section-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: var(--title-color);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            margin-bottom: 20px;
+        }
+
+        .skill-category h3 {
+            color: var(--border-color);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background-color: var(--skill-bg);
+            color: var(--skill-text);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--border-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            filter: brightness(90%);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .profile-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 10px;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .theme-switch {
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        #scrollToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--border-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        #scrollToTop:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switch" onclick="toggleTheme()">
+        🌓 Theme
+    </div>
+
+    <header class="profile-header">
+        <div class="profile-content">
+            <img src="img.jpg" alt="Pathanin khuhathong" class="profile-image">
+            <div class="profile-info">
+                <h1>Pathanin khuhathong</h1>
+                <p class="profile-title">Internship Student</p>
+                <div class="contact-info">
+                    <a href="tel:091-861-2630" class="contact-item">📱 091-861-2630</a>
+                    <a href="mailto:Pathanin.k@kkumail.com" class="contact-item">📧 Pathanin.k@kkumail.com</a>
+                    <a href="https://linkedin.com/in/khuhathongk4154" class="contact-item">💼 LinkedIn</a>
+                    <a href="https://github.com/pathanin-kht" class="contact-item">📚 GitHub</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">About Me</h2>
+            <p>A third-year Computer Science student at Khon Kaen University with hands-on experience in IoT systems, software development, and data analysis. Passionate about applying technology to solve real-world problems and eager to contribute expertise in a tech internship.</p>
+            <a href="https://github.com/pathanin-kht?tab=repositories" class="cta-button">View My Projects</a>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Education</h2>
+            <h3>Khon Kaen University</h3>
+            <p>Bachelor of Computer Science</p>
+            <p>College of Computing | Major in Computer Science</p>
+            <p>June 2022 - Present</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">IoT Development</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Real-Time Data Processing</span>
+                        <span class="skill-tag">Software Development</span>
+                        <span class="skill-tag">Web Development</span>
+                        <span class="skill-tag">Database Management</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Image Processing</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Technologies</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">ESP32</span>
+                        <span class="skill-tag">Firebase</span>
+                        <span class="skill-tag">RNN-LSTM</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">OpenCV</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Problem-Solving</span>
+                        <span class="skill-tag">Project Management</span>
+                        <span class="skill-tag">Team Leadership</span>
+                        <span class="skill-tag">Adaptability</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Thai (Native)</span>
+                        <span class="skill-tag">English (Advanced)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="scrollToTop" onclick="scrollToTop()">↑</div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = 'flex';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
