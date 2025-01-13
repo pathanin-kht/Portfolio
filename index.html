@@ -201,7 +201,7 @@
         <a-light type="directional" position="2 4 3" intensity="0.7" color="#ffeecc" cast-shadow="true"></a-light>
     </a-scene>
 
-    <div id="audioControl" onclick="toggleMusic()">Play Background Music</div>
+    <div id="audioControl" onclick="toggleMusic()">Play</div>
 
     <div class="social-links">
         <a href="tel:091-861-2630" class="social-link">📱</a>
@@ -233,12 +233,12 @@
             if (isMusicPlaying) {
                 backgroundMusic.pause();
                 isMusicPlaying = false;
-                audioControl.textContent = 'Play Background Music';
+                audioControl.textContent = 'Play';
                 audioControl.classList.remove('playing');
             } else {
                 backgroundMusic.play();
                 isMusicPlaying = true;
-                audioControl.textContent = 'Pause Background Music';
+                audioControl.textContent = 'Pause';
                 audioControl.classList.add('playing');
             }
         }
